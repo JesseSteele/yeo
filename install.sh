@@ -28,9 +28,6 @@ else
   /usr/bin/rm -rf yay
 fi
 
-## Let's use the yeo helper
-/usr/bin/ln -sfn /opt/vrk/donjon/yeo.sh /usr/local/bin/yeo
-
 ## Update yay
 /usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -Syyu --noconfirm'
 /usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -Scc --noconfirm'
