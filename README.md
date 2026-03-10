@@ -29,7 +29,13 @@ How `yeo` helps...
   2. Where the `sudo` password only needs to be entered once
   3. Thus, we have a "press and walk" `sudo` command more like `pacman`
 
-## Prerequesites:
+# Installer script
+The `install.sh` script included in this repo will install both the AUR `yay` helper and the `yeo` command
+
+If you use that script, then none of the rest of this is needed
+
+# DIY
+## Prerequesites
 
 1. `sudo`
 
@@ -72,19 +78,19 @@ if which yay && id -u worker; then if which yeo; then echo "yeo may already be i
 
 *If you see the message `Ready to install yeo!` then you are ready to proceed...*
 
-| **`yeo` install**: $
+| **`yeo` install**: # (use `su` to run while root user)
 
 ```console
-sudo groupadd worker
-sudo useradd -g worker worker
-sudo usermod -a -G wheel worker
-sudo mkdir -p /opt/vrk/worker
-sudo chown -R worker:worker /opt/vrk/worker
-sudo usermod -d /opt/vrk/worker worker
-sudo usermod -L worker
-sudo chsh -s /usr/sbin/bash worker
-sudo echo 'worker ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/worker
-sudo cat <<'EOF' > /opt/yeo.sh
+groupadd worker
+useradd -g worker worker
+usermod -a -G wheel worker
+mkdir -p /opt/vrk/worker
+chown -R worker:worker /opt/vrk/worker
+usermod -d /opt/vrk/worker worker
+usermod -L worker
+chsh -s /usr/sbin/bash worker
+echo 'worker ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/worker
+cat <<'EOF' > /opt/yeo.sh
 #!/bin/bash
 if [ "$(id -u)" != "0" ]; then
   /usr/bin/echo "Must run as root or sudo!"
@@ -107,8 +113,8 @@ else
   exit 1
 fi
 EOF
-sudo chmod 755 /opt/yeo.sh
-sudo ln -sfn /opt/yeo.sh /usr/local/bin/yeo
+chmod 755 /opt/yeo.sh
+ln -sfn /opt/yeo.sh /usr/local/bin/yeo
 ```
 
 Now, you have the option to run `sudo yeo` where you would normally run `yay`, including with `--noconfirm` or such `yay` options if you like
